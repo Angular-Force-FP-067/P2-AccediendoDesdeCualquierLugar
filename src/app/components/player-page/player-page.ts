@@ -6,11 +6,10 @@ import { MediaComponent } from '../media/media';
 import { PLAYERS } from '../../data/players';
 
 @Component({
-  selector: 'app-player-page',
-  standalone: true,
-  imports: [CommonModule, DetailComponent, MediaComponent],
-  templateUrl: './player-page.html',
-  styleUrls: ['./player-page.css']
+    selector: 'app-player-page',
+    imports: [CommonModule, DetailComponent, MediaComponent],
+    templateUrl: './player-page.html',
+    styleUrls: ['./player-page.css']
 })
 export class PlayerPage {
   player: any | undefined;

@@ -5,11 +5,10 @@ import { ARQUETIPOS } from '../../data/arquetipos';
 import { Arquetipo } from '../../models/arquetipos';
 
 @Component({
-  selector: 'app-arquetipos',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './arquetipos.html',
-  styleUrls: ['./arquetipos.css'],
+    selector: 'app-arquetipos',
+    imports: [CommonModule],
+    templateUrl: './arquetipos.html',
+    styleUrls: ['./arquetipos.css']
 })
 
 export class ArquetiposComponent {

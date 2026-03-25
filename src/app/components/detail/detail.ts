@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Player } from '../../models/players';
 
 @Component({
-  selector: 'app-detail',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './detail.html',
-  styleUrls: ['./detail.css']
+    selector: 'app-detail',
+    imports: [CommonModule],
+    templateUrl: './detail.html',
+    styleUrls: ['./detail.css']
 })
 export class DetailComponent {
   @Input() jugador?: Player;

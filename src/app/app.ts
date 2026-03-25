@@ -7,17 +7,16 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LandingBannerComponent } from './shared/landing-banner/landing-banner.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    NgIf,
-    HeaderComponent,
-    FooterComponent,
-    LandingBannerComponent
-  ],
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+    selector: 'app-root',
+    imports: [
+        RouterOutlet,
+        NgIf,
+        HeaderComponent,
+        FooterComponent,
+        LandingBannerComponent
+    ],
+    templateUrl: './app.html',
+    styleUrls: ['./app.css']
 })
 export class AppComponent {
   isLanding = false;

@@ -9,11 +9,10 @@ import { RouterModule } from '@angular/router';
 import { FiltroPlayersPipe } from '../../pipes/filtro-players.pipe';
 
 @Component({
-  selector: 'app-players',
-  standalone: true,
-  imports: [FormsModule, CommonModule, DetailComponent, MediaComponent, FiltroPlayersPipe, RouterModule], 
-  templateUrl: './players.html',
-  styleUrls: ['./players.css']
+    selector: 'app-players',
+    imports: [FormsModule, CommonModule, DetailComponent, MediaComponent, FiltroPlayersPipe, RouterModule],
+    templateUrl: './players.html',
+    styleUrls: ['./players.css']
 })
 export class PlayersComponent {
 
