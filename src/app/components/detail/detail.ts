@@ -6,6 +6,7 @@ import { Player } from '../../models/players';
     selector: 'app-detail',
     imports: [CommonModule],
     templateUrl: './detail.html',
+    standalone: true,
     styleUrls: ['./detail.css']
 })
 export class DetailComponent {

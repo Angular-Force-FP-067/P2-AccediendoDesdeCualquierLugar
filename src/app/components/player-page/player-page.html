@@ -1,17 +1,15 @@
-<div class="container mt-4">
-  <div *ngIf="player; else notFound">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <app-detail [jugador]="player"></app-detail>
-      </div>
+<div class="container mt-4" *ngIf="player$ | async as player; else notFound">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <app-detail [jugador]="player"></app-detail>
+    </div>
 
-      <div class="col-md-8 mt-3">
-        <app-media [titulo]="'Vídeo de ' + player.nombre" [videoUrl]="player.videoURL"></app-media>
-      </div>
+    <div class="col-md-8 mt-3" *ngIf="player.videoURL">
+      <app-media [titulo]="'Vídeo de ' + player.nombre" [videoUrl]="player.videoURL"></app-media>
     </div>
   </div>
-
-  <ng-template #notFound>
-    <div class="alert alert-warning">Jugador no encontrado.</div>
-  </ng-template>
 </div>
+
+<ng-template #notFound>
+  <div class="alert alert-warning">Jugador no encontrado.</div>
+</ng-template>

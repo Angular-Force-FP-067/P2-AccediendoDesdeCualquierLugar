@@ -4,7 +4,8 @@ import { Component, Input } from '@angular/core';
     selector: 'app-media',
     imports: [],
     templateUrl: './media.html',
-    styleUrls: ['./media.css']
+    styleUrls: ['./media.css'],
+    standalone: true,
 })
 export class MediaComponent {
   @Input() videoUrl: string = '';
