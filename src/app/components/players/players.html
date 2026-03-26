@@ -1,6 +1,5 @@
 <section class="players">
   <header class="players_header">
-
     <h2>Plantilla del Equipo</h2>
     <h4>Conoce a nuestros jugadores profesionales</h4>
 
@@ -37,12 +36,13 @@
     </div>
   </header>
 
+  <!-- Lista de jugadores -->
   <ul class="players_list">
-  <li *ngFor="let player of players | filtroPlayers:filtroNombre:filtroPosicion:filtroEdadMin"
-    class="players_item"
-    [class.selected]="player === selectedPlayer"
-    (click)="seleccionarPlayer(player)"
-    [routerLink]="['/players', player.id]">
+    <li *ngFor="let player of ((players$ | async) || []) | filtroPlayers:filtroNombre:filtroPosicion:filtroEdadMin"
+        class="players_item"
+        [class.selected]="player === selectedPlayer"
+        (click)="seleccionarPlayer(player)"
+        [routerLink]="['/players', player.id]">
       
       <div class="player-card">
         <div class="player-img-wrapper">
@@ -85,11 +85,14 @@
     </li>
   </ul>
 
+  <!-- Detalle del jugador -->
   <div class="detail-container mt-4 d-flex justify-content-center" *ngIf="selectedPlayer">
     <app-detail [jugador]="selectedPlayer"></app-detail>
   </div>
 
-  <p *ngIf="(players | filtroPlayers:filtroNombre:filtroPosicion:filtroEdadMin).length === 0" class="text-center mt-4">
+  <!-- Mensaje si no hay jugadores -->
+  <p *ngIf="(((players$ | async) || []) | filtroPlayers:filtroNombre:filtroPosicion:filtroEdadMin).length === 0"
+     class="text-center mt-4">
     No se han encontrado jugadores con ese filtro.
   </p>
 </section>
