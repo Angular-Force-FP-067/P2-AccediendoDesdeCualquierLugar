@@ -1,7 +1,10 @@
 // src/firebase.ts
-import { initializeApp } from '@angular/fire/app';
-import { getFirestore } from '@angular/fire/firestore';
-import { environment } from './environments/environment'; // Para tener los APIS, TOKEN, etc...
+// Este archivo contiene la configuración de Firebase para referencia.
+// NO inicialices la app aquí: AngularFire ya inicializa Firebase usando
+// `provideFirebaseApp` en `src/app/app.config.ts`. Inicializar aquí provoca
+// que Firebase/Firestore se creen fuera del contexto de inyección de Angular
+// y genera warnings como "Calling Firebase APIs outside of an Injection context".
 
-const app = initializeApp(environment.firebase);
-export const db = getFirestore(app);
+import { environment } from './environments/environment';
+
+export const firebaseConfig = environment.firebase;
