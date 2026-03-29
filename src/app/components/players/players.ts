@@ -19,20 +19,19 @@ import { FiltroPlayersPipe } from '../../pipes/filtro-players.pipe';
 })
 export class PlayersComponent implements OnInit {
 
-  players$!: Observable<Player[]>; // ⚡ Observable de Firebase
+  players$!: Observable<Player[]>;
   playersCount: number = 0;
   filtroNombre: string = '';
   filtroPosicion: string = '';
   filtroEdadMin: number = 20;
   selectedPlayer: Player | undefined;
+  isCreatingNew: boolean = false;
 
-  constructor(private firestore: Firestore, private itemsService: ItemsService) {}
+  constructor(private firestore: Firestore, private itemsService: ItemsService) { }
 
   ngOnInit() {
-    // Usamos el servicio para obtener los jugadores (observables de Firestore)
     this.players$ = this.itemsService.getItems();
 
-    // Suscripción puntual para comprobar y mostrar el número de documentos traídos desde Firestore
     this.players$.pipe(take(1)).subscribe(list => {
       this.playersCount = Array.isArray(list) ? list.length : 0;
       console.log('Firestore players count:', this.playersCount, list);
@@ -40,17 +39,37 @@ export class PlayersComponent implements OnInit {
   }
 
   seleccionarPlayer(player: Player): void {
-    this.selectedPlayer = player;
-  }
+  this.selectedPlayer = player;
+  this.isCreatingNew = false;
 
-  // Ejemplo: eliminar un jugador desde el listado usando ItemsService
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+nuevoPlayer(): void {
+  this.selectedPlayer = undefined;
+  this.isCreatingNew = true;
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+cerrarDetalle(): void {
+  this.selectedPlayer = undefined;
+  this.isCreatingNew = false;
+}
+
   deletePlayer(player: Player, event?: Event) {
     if (event) {
       event.stopPropagation();
       event.preventDefault();
     }
 
-    const id = player && (player as any).id ? String((player as any).id) : null;
+    const id = player?.id ? String(player.id) : null;
     if (!id) {
       console.warn('deletePlayer: id no disponible', player);
       return;
@@ -61,7 +80,9 @@ export class PlayersComponent implements OnInit {
 
     this.itemsService.deleteItem(id)
       .then(() => {
-        // La colección es reactiva: collectionData actualizará players$ automáticamente.
+        if (this.selectedPlayer?.id === id) {
+          this.cerrarDetalle();
+        }
         console.log('Jugador eliminado:', id);
       })
       .catch(err => {
