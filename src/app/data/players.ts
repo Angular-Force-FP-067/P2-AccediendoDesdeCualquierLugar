@@ -1,4 +1,4 @@
-import { Player } from '../models/players';
+/*import { Player } from '../models/players';
 
 export const PLAYERS: Player[] = [
     {
@@ -109,4 +109,4 @@ export const PLAYERS: Player[] = [
         numejersey: 7,
         imagen: 'media/players/007/profile.png'
     },
-];
+];*/

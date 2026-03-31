@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DetailComponent } from '../detail/detail';
 import { MediaComponent } from '../media/media';
-import { Firestore, docData, doc } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { ItemsService } from '../../services/items.service';
+import { Player } from '../../models/players';
 
 @Component({
   selector: 'app-player-page',
@@ -16,17 +17,30 @@ import { switchMap } from 'rxjs/operators';
 })
 export class PlayerPage implements OnInit {
 
-  player$: Observable<any> = of(null); // Observable que contendrá los datos del jugador
+  player$: Observable<Player | undefined> = of(undefined);
+  isNewMode = false;
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore) {}
+  constructor(
+    private route: ActivatedRoute,
+    private itemsService: ItemsService
+  ) {}
 
   ngOnInit(): void {
     this.player$ = this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
-        if (!id) return of(null); // Si no hay id, devolvemos null
-        const playerDoc = doc(this.firestore, `players/${id}`);
-        return docData(playerDoc, { idField: 'id' }); // Observable con los datos del jugador
+
+        if (!id) {
+          return of(undefined);
+        }
+
+        if (id === 'new') {
+          this.isNewMode = true;
+          return of(undefined);
+        }
+
+        this.isNewMode = false;
+        return this.itemsService.getItemById(id);
       })
     );
   }
