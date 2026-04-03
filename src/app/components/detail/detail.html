@@ -68,11 +68,29 @@
       <div class="form-field">
         <label>Nombre</label>
         <input type="text" class="form-control" formControlName="nombre" />
+
+        <small class="error-message" *ngIf="hasError('nombre', 'required')">
+          El nombre es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('nombre', 'maxlength')">
+          El nombre no puede superar los
+          {{ getControlError('nombre', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Apellidos</label>
         <input type="text" class="form-control" formControlName="apellidos" />
+
+        <small class="error-message" *ngIf="hasError('apellidos', 'required')">
+          El apellido es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('apellidos', 'maxlength')">
+          El apellido no puede superar los
+          {{ getControlError('apellidos', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
@@ -86,6 +104,15 @@
       <div class="form-field">
         <label>País</label>
         <input type="text" class="form-control" formControlName="pais" />
+
+        <small class="error-message" *ngIf="hasError('pais', 'required')">
+          El pais es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('pais', 'maxlength')">
+          El país no puede superar los
+          {{ getControlError('pais', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
@@ -231,6 +258,10 @@
       <div class="form-field form-field--full">
         <label>Biografía</label>
         <textarea rows="5" class="form-control" formControlName="biografia"></textarea>
+        <small class="error-message" *ngIf="hasError('biografia', 'minlength')">
+          La biografía debe tener al menos
+          {{ getControlError('biografia', 'minlength')?.requiredLength }} caracteres.
+        </small>
       </div>
     </form>
     <div class="video-section" *ngIf="playerForm.get('videoURL')?.value">
