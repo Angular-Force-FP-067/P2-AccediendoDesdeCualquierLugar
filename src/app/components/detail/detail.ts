@@ -183,6 +183,10 @@ export class DetailComponent implements OnInit, OnChanges {
 
   hasError(controlName: string, errorName: string): boolean {
     const control = this.playerForm.get(controlName);
-    return !!control && control.touched && control.hasError(errorName);
+    return !!control && control.hasError(errorName) && (control.touched || control.dirty);
+  }
+
+  getControlError(controlName: string, errorName: string): any {
+    return this.playerForm.get(controlName)?.errors?.[errorName];
   }
 }

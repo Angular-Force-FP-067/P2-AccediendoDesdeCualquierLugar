@@ -11,23 +11,35 @@
       <p class="detail-position">{{ playerForm.get('posicion')?.value }}</p>
 
       <div class="summary-stats">
-        <div><strong>{{ playerForm.get('PPP')?.value }}</strong><span>PPP</span></div>
-        <div><strong>{{ playerForm.get('APP')?.value }}</strong><span>APP</span></div>
-        <div><strong>{{ playerForm.get('RPP')?.value }}</strong><span>RPP</span></div>
+        <div>
+          <strong>{{ playerForm.get('PPP')?.value }}</strong
+          ><span>PPP</span>
+        </div>
+        <div>
+          <strong>{{ playerForm.get('APP')?.value }}</strong
+          ><span>APP</span>
+        </div>
+        <div>
+          <strong>{{ playerForm.get('RPP')?.value }}</strong
+          ><span>RPP</span>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="detail-form-panel">
     <div class="detail-form-header">
-      <h3>{{ isNewPlayer ? 'Nuevo jugador' : (editMode ? 'Editar jugador' : 'Detalle del jugador') }}</h3>
+      <h3>
+        {{ isNewPlayer ? 'Nuevo jugador' : editMode ? 'Editar jugador' : 'Detalle del jugador' }}
+      </h3>
 
       <div class="detail-actions">
         <button
           *ngIf="!isNewPlayer && !editMode"
           type="button"
           class="btn btn-primary"
-          (click)="enableEdit()">
+          (click)="enableEdit()"
+        >
           Editar
         </button>
 
@@ -36,7 +48,8 @@
           type="button"
           class="btn btn-success"
           (click)="savePlayer()"
-          [disabled]="isSaving">
+          [disabled]="isSaving"
+        >
           {{ isSaving ? 'Guardando...' : 'Guardar' }}
         </button>
 
@@ -44,7 +57,8 @@
           *ngIf="isNewPlayer || editMode"
           type="button"
           class="btn btn-outline-secondary"
-          (click)="cancelEdit()">
+          (click)="cancelEdit()"
+        >
           Cancelar
         </button>
       </div>
@@ -76,12 +90,31 @@
 
       <div class="form-field">
         <label>Edad</label>
-        <input type="number" class="form-control" formControlName="edad" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="edad"
+          [class.is-invalid]="
+            playerForm.get('edad')?.invalid &&
+            (playerForm.get('edad')?.touched || playerForm.get('edad')?.dirty)
+          "
+        />
+        <small class="error-message" *ngIf="hasError('edad', 'required')">
+          La edad es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('edad', 'min')">
+          La edad no puede ser menor de {{ getControlError('edad', 'min')?.min }}.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('edad', 'max')">
+          La edad no puede ser mayor de {{ getControlError('edad', 'max')?.max }}.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Altura (cm)</label>
-<input type="number" class="form-control" formControlName="altura" />
+        <input type="number" class="form-control" formControlName="altura" />
       </div>
 
       <div class="form-field">
@@ -130,16 +163,12 @@
       </div>
     </form>
     <div class="video-section" *ngIf="playerForm.get('videoURL')?.value">
-  <h5>Vídeo</h5>
+      <h5>Vídeo</h5>
 
-  <div class="video-wrapper">
-    <iframe
-    *ngIf="getSafeVideoUrl()"
-      [src]="getSafeVideoUrl()"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
+      <div class="video-wrapper">
+        <iframe *ngIf="getSafeVideoUrl()" [src]="getSafeVideoUrl()" frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
   </div>
 </div>
