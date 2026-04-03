@@ -86,7 +86,7 @@ export class DetailComponent implements OnInit, OnChanges {
       posicion: this.jugador?.posicion ?? '',
       pais: this.jugador?.pais ?? '',
       edad: this.jugador?.edad ?? 18,
-      altura: this.jugador?.altura ?? 1.8,
+      altura: this.jugador?.altura ?? 180,
       peso: this.jugador?.peso ?? 75,
       PPP: this.jugador?.PPP ?? 0,
       APP: this.jugador?.APP ?? 0,
@@ -184,6 +184,11 @@ export class DetailComponent implements OnInit, OnChanges {
   hasError(controlName: string, errorName: string): boolean {
     const control = this.playerForm.get(controlName);
     return !!control && control.hasError(errorName) && (control.touched || control.dirty);
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.playerForm.get(controlName);
+    return !!control && control.invalid && (control.touched || control.dirty);
   }
 
   getControlError(controlName: string, errorName: string): any {
