@@ -113,6 +113,17 @@
   border-radius: 12px;
 }
 
+.is-invalid {
+  border: 1px solid #dc3545;
+}
+
+.error-message {
+  display: block;
+  margin-top: 0.25rem;
+  color: #dc3545;
+  font-size: 0.85rem;
+}
+
 .video-section {
   margin-top: 2rem;
 }
@@ -123,7 +134,7 @@
   padding-top: 56.25%; /* 16:9 */
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
 }
 
 .video-wrapper iframe {

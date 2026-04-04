@@ -11,23 +11,35 @@
       <p class="detail-position">{{ playerForm.get('posicion')?.value }}</p>
 
       <div class="summary-stats">
-        <div><strong>{{ playerForm.get('PPP')?.value }}</strong><span>PPP</span></div>
-        <div><strong>{{ playerForm.get('APP')?.value }}</strong><span>APP</span></div>
-        <div><strong>{{ playerForm.get('RPP')?.value }}</strong><span>RPP</span></div>
+        <div>
+          <strong>{{ playerForm.get('PPP')?.value }}</strong
+          ><span>PPP</span>
+        </div>
+        <div>
+          <strong>{{ playerForm.get('APP')?.value }}</strong
+          ><span>APP</span>
+        </div>
+        <div>
+          <strong>{{ playerForm.get('RPP')?.value }}</strong
+          ><span>RPP</span>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="detail-form-panel">
     <div class="detail-form-header">
-      <h3>{{ isNewPlayer ? 'Nuevo jugador' : (editMode ? 'Editar jugador' : 'Detalle del jugador') }}</h3>
+      <h3>
+        {{ isNewPlayer ? 'Nuevo jugador' : editMode ? 'Editar jugador' : 'Detalle del jugador' }}
+      </h3>
 
       <div class="detail-actions">
         <button
           *ngIf="!isNewPlayer && !editMode"
           type="button"
           class="btn btn-primary"
-          (click)="enableEdit()">
+          (click)="enableEdit()"
+        >
           Editar
         </button>
 
@@ -36,7 +48,8 @@
           type="button"
           class="btn btn-success"
           (click)="savePlayer()"
-          [disabled]="isSaving">
+          [disabled]="isSaving || playerForm.invalid"
+        >
           {{ isSaving ? 'Guardando...' : 'Guardar' }}
         </button>
 
@@ -44,7 +57,8 @@
           *ngIf="isNewPlayer || editMode"
           type="button"
           class="btn btn-outline-secondary"
-          (click)="cancelEdit()">
+          (click)="cancelEdit()"
+        >
           Cancelar
         </button>
       </div>
@@ -53,93 +67,289 @@
     <form [formGroup]="playerForm" class="detail-form-grid">
       <div class="form-field">
         <label>Nombre</label>
-        <input type="text" class="form-control" formControlName="nombre" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre"
+          [class.is-invalid]="isInvalid('nombre')"
+        />
+
+        <small class="error-message" *ngIf="hasError('nombre', 'required')">
+          El nombre es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('nombre', 'maxlength')">
+          El nombre no puede superar los
+          {{ getControlError('nombre', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Apellidos</label>
-        <input type="text" class="form-control" formControlName="apellidos" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="apellidos"
+          [class.is-invalid]="isInvalid('apellidos')"
+        />
+
+        <small class="error-message" *ngIf="hasError('apellidos', 'required')">
+          El apellido es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('apellidos', 'maxlength')">
+          El apellido no puede superar los
+          {{ getControlError('apellidos', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Posición</label>
-        <select class="form-select" formControlName="posicion">
+        <select
+          class="form-select"
+          formControlName="posicion"
+          [class.is-invalid]="isInvalid('posicion')"
+        >
           <option value="">Selecciona una posición</option>
           <option *ngFor="let posicion of posiciones" [value]="posicion">{{ posicion }}</option>
         </select>
+
+        <small class="error-message" *ngIf="hasError('posicion', 'required')">
+          La posición es obligatoria.
+        </small>
       </div>
 
       <div class="form-field">
         <label>País</label>
-        <input type="text" class="form-control" formControlName="pais" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="pais"
+          [class.is-invalid]="isInvalid('pais')"
+        />
+
+        <small class="error-message" *ngIf="hasError('pais', 'required')">
+          El país es obligatorio.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('pais', 'maxlength')">
+          El país no puede superar los
+          {{ getControlError('pais', 'maxlength')?.requiredLength }} caracteres.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Edad</label>
-        <input type="number" class="form-control" formControlName="edad" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="edad"
+          [class.is-invalid]="isInvalid('edad')"
+        />
+        <small class="error-message" *ngIf="hasError('edad', 'required')">
+          La edad es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('edad', 'min')">
+          La edad no puede ser menor de {{ getControlError('edad', 'min')?.min }}.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('edad', 'max')">
+          La edad no puede ser mayor de {{ getControlError('edad', 'max')?.max }}.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Altura (cm)</label>
-<input type="number" class="form-control" formControlName="altura" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="altura"
+          [class.is-invalid]="isInvalid('altura')"
+        />
+
+        <small class="error-message" *ngIf="hasError('altura', 'required')">
+          La altura es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('altura', 'min')">
+          La altura no puede ser menor de {{ getControlError('altura', 'min')?.min }} cm.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('altura', 'max')">
+          La altura no puede ser mayor de {{ getControlError('altura', 'max')?.max }} cm.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Peso (kg)</label>
-        <input type="number" class="form-control" formControlName="peso" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="peso"
+          [class.is-invalid]="isInvalid('peso')"
+        />
+
+        <small class="error-message" *ngIf="hasError('peso', 'required')">
+          La peso es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('peso', 'min')">
+          La peso no puede ser menor de {{ getControlError('peso', 'min')?.min }} kg.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('peso', 'max')">
+          La peso no puede ser mayor de {{ getControlError('peso', 'max')?.max }} kg.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Número</label>
-        <input type="number" class="form-control" formControlName="numejersey" />
+        <input
+          type="number"
+          class="form-control"
+          formControlName="numejersey"
+          [class.is-invalid]="isInvalid('numejersey')"
+        />
+
+        <small class="error-message" *ngIf="hasError('numejersey', 'required')">
+          El número es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('numejersey', 'min')">
+          El número no puede ser negativo.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('numejersey', 'max')">
+          El número no puede ser mayor de {{ getControlError('numejersey', 'max')?.max }}.
+        </small>
       </div>
 
       <div class="form-field">
         <label>PPP</label>
-        <input type="number" step="0.1" class="form-control" formControlName="PPP" />
+        <input
+          type="number"
+          step="0.1"
+          class="form-control"
+          formControlName="PPP"
+          [class.is-invalid]="isInvalid('PPP')"
+        />
+
+        <small class="error-message" *ngIf="hasError('PPP', 'required')">
+          Los puntos por partido es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('PPP', 'min')">
+          Los puntos por partido no puede ser negativo.
+        </small>
       </div>
 
       <div class="form-field">
         <label>APP</label>
-        <input type="number" step="0.1" class="form-control" formControlName="APP" />
+        <input
+          type="number"
+          step="0.1"
+          class="form-control"
+          formControlName="APP"
+          [class.is-invalid]="isInvalid('APP')"
+        />
+
+        <small class="error-message" *ngIf="hasError('APP', 'required')">
+          Las asistencias por partido es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('APP', 'min')">
+          Las asistencias por partido no puede ser negativo.
+        </small>
       </div>
 
       <div class="form-field">
         <label>RPP</label>
-        <input type="number" step="0.1" class="form-control" formControlName="RPP" />
+        <input
+          type="number"
+          step="0.1"
+          class="form-control"
+          formControlName="RPP"
+          [class.is-invalid]="isInvalid('RPP')"
+        />
+        <small class="error-message" *ngIf="hasError('RPP', 'required')">
+          Los rebotes por partido es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('RPP', 'min')">
+          Los rebotes por partido no puede ser negativo.
+        </small>
       </div>
 
       <div class="form-field">
         <label>Tiros de campo (%)</label>
-        <input type="number" step="0.1" class="form-control" formControlName="TirosCampo" />
+        <input
+          type="number"
+          step="0.1"
+          class="form-control"
+          formControlName="TirosCampo"
+          [class.is-invalid]="isInvalid('TirosCampo')"
+        />
+
+        <small class="error-message" *ngIf="hasError('TirosCampo', 'required')">
+          El porcentaje es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('TirosCampo', 'min')">
+          El porcentaje no puede ser negativo.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('TirosCampo', 'max')">
+          El porcentaje no puede ser mayor de {{ getControlError('TirosCampo', 'max')?.max }}.
+        </small>
       </div>
 
       <div class="form-field form-field--full">
         <label>URL de imagen</label>
-        <input type="text" class="form-control" formControlName="imagen" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="imagen"
+          [class.is-invalid]="isInvalid('imagen')"
+        />
       </div>
 
       <div class="form-field form-field--full">
         <label>URL de vídeo</label>
-        <input type="text" class="form-control" formControlName="videoURL" />
+        <input
+          type="text"
+          class="form-control"
+          formControlName="videoURL"
+          [class.is-invalid]="isInvalid('videoURL')"
+        />
       </div>
 
       <div class="form-field form-field--full">
         <label>Biografía</label>
-        <textarea rows="5" class="form-control" formControlName="biografia"></textarea>
+        <textarea
+          rows="5"
+          class="form-control"
+          formControlName="biografia"
+          [class.is-invalid]="isInvalid('biografia')"
+        ></textarea>
+
+        <small class="error-message" *ngIf="hasError('biografia', 'required')">
+          La biografía es obligatoria.
+        </small>
+
+        <small class="error-message" *ngIf="hasError('biografia', 'minlength')">
+          La biografía debe tener al menos
+          {{ getControlError('biografia', 'minlength')?.requiredLength }} caracteres.
+        </small>
       </div>
     </form>
     <div class="video-section" *ngIf="playerForm.get('videoURL')?.value">
-  <h5>Vídeo</h5>
+      <h5>Vídeo</h5>
 
-  <div class="video-wrapper">
-    <iframe
-    *ngIf="getSafeVideoUrl()"
-      [src]="getSafeVideoUrl()"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
+      <div class="video-wrapper">
+        <iframe *ngIf="getSafeVideoUrl()" [src]="getSafeVideoUrl()" frameborder="0" allowfullscreen>
+        </iframe>
+      </div>
+    </div>
   </div>
 </div>
