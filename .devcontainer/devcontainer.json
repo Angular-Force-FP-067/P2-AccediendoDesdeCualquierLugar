@@ -1,0 +1,5 @@
+{
+    "name": "Angular App",
+    "image": "node:22",
+    "postCreateCommand": "npm install"
+  }
