@@ -1,59 +1,48 @@
-# EquipoBasket
+# 🏀 EquipoBasket
+Proyecto desarrollado con Angular CLI (v20.3.x) para la gestión y visualización de un equipo de baloncesto.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+## Equipo
+Cèlia Trullà Estruch
+Xavi Miró Carrera
+Sergio Gómez Gutiérrez
+Helena Vivas Ramajo
 
-## Development server
+## Base de datos
+Este proyecto utiliza **Firebase** como base de datos en la nube, gestionada mediante **AngularFire**.
 
-To start a local development server, run:
+## Ramas del repositorio
+Este proyecto utiliza dos ramas principales según el entorno de ejecución:
+> main → Desarrollo en entorno local
+> codesandbox → Configuración adaptada para ejecución en CodeSandbox
 
-```bash
-ng serve
+## Servidor de desarrollo (Local)
+Para ejecutar el proyecto en local:
+```````ng serve```
+Abrir en el navegador:
+http://localhost:4200/
+
+## Ejecución en CodeSandbox
+Para ejecutar el proyecto en CodeSandbox:
+Cambiar a la rama codesandbox:
+``````git checkout codesandbox```
+Instalar dependencias:
+`````npm install```
+Iniciar el servidor:
+````npm start```
+
+Esta rama está configurada para funcionar en entornos online con:
+```ng serve --host 0.0.0.0 --allowed-hosts=all```
+CodeSandbox generará automáticamente una URL pública tipo:
+https://xxxxx-4200.csb.app
+
+## Notas
+- La rama `codesandbox` incluye ajustes necesarios para que Angular funcione correctamente en entornos online (Node.js v22, allowed-hosts).
+- La rama `main` debe utilizarse para el desarrollo local.
+- El proyecto está preparado para ser compartido y evaluado mediante CodeSandbox.
+- La base de datos Firebase es compartida entre ambas ramas.
+
+## Recursos adicionales
+[Documentación oficial de Angular CLI](https://angular.dev/tools/cli)
+[Documentación de Firebase](https://firebase.google.com/docs)
+[Documentación de AngularFire](https://github.com/angular/angularfire)
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
