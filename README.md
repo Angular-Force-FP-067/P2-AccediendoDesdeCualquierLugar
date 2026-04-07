@@ -1,59 +1,64 @@
-# EquipoBasket
+# 🏀 EquipoBasket
+Proyecto desarrollado con Angular CLI (v20.3.x) para la gestión y visualización de un equipo de baloncesto.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+## Equipo
+Cèlia Trullà Estruch
+Xavi Miró Carrera
+Sergio Gómez Gutiérrez
+Helena Vivas Ramajo
 
-## Development server
+## Base de datos
+Este proyecto utiliza **Firebase** como base de datos en la nube, gestionada mediante **AngularFire**.
 
-To start a local development server, run:
+## Ramas del repositorio
+Este proyecto utiliza dos ramas principales según el entorno de ejecución:
 
-```bash
-ng serve
-```
+> main → Desarrollo en entorno local
+> 
+> codesandbox → Configuración adaptada para ejecución en CodeSandbox
+> 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Servidor de desarrollo (Local)
+Para ejecutar el proyecto en local:
 
-## Code scaffolding
+```ng serve```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Abrir en el navegador:
 
-```bash
-ng generate component component-name
-```
+http://localhost:4200/
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Ejecución en CodeSandbox
+Para ejecutar el proyecto en CodeSandbox:
+Cambiar a la rama codesandbox:
 
-```bash
-ng generate --help
-```
+```git checkout codesandbox```
 
-## Building
+Instalar dependencias:
 
-To build the project run:
+```npm install```
 
-```bash
-ng build
-```
+Iniciar el servidor:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+```npm start```
 
-## Running unit tests
+Esta rama está configurada para funcionar en entornos online con:
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+```ng serve --host 0.0.0.0 --allowed-hosts=all```
 
-```bash
-ng test
-```
+CodeSandbox generará automáticamente una URL pública tipo:
 
-## Running end-to-end tests
+https://xxxxx-4200.csb.app
 
-For end-to-end (e2e) testing, run:
+## Notas
+- La rama `codesandbox` incluye ajustes necesarios para que Angular funcione correctamente en entornos online (Node.js v22, allowed-hosts).
+- La rama `main` debe utilizarse para el desarrollo local.
+- El proyecto está preparado para ser compartido y evaluado mediante CodeSandbox.
+- La base de datos Firebase es compartida entre ambas ramas.
 
-```bash
-ng e2e
-```
+## Recursos adicionales
+[Documentación oficial de Angular CLI](https://angular.dev/tools/cli)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+[Documentación de Firebase](https://firebase.google.com/docs)
 
-## Additional Resources
+[Documentación de AngularFire](https://github.com/angular/angularfire)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
