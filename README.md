@@ -12,27 +12,41 @@ Este proyecto utiliza **Firebase** como base de datos en la nube, gestionada med
 
 ## Ramas del repositorio
 Este proyecto utiliza dos ramas principales según el entorno de ejecución:
+
 > main → Desarrollo en entorno local
+> 
 > codesandbox → Configuración adaptada para ejecución en CodeSandbox
+> 
 
 ## Servidor de desarrollo (Local)
 Para ejecutar el proyecto en local:
-```````ng serve```
+
+```ng serve```
+
 Abrir en el navegador:
+
 http://localhost:4200/
 
 ## Ejecución en CodeSandbox
 Para ejecutar el proyecto en CodeSandbox:
 Cambiar a la rama codesandbox:
-``````git checkout codesandbox```
+
+```git checkout codesandbox```
+
 Instalar dependencias:
-`````npm install```
+
+```npm install```
+
 Iniciar el servidor:
-````npm start```
+
+```npm start```
 
 Esta rama está configurada para funcionar en entornos online con:
+
 ```ng serve --host 0.0.0.0 --allowed-hosts=all```
+
 CodeSandbox generará automáticamente una URL pública tipo:
+
 https://xxxxx-4200.csb.app
 
 ## Notas
@@ -43,6 +57,8 @@ https://xxxxx-4200.csb.app
 
 ## Recursos adicionales
 [Documentación oficial de Angular CLI](https://angular.dev/tools/cli)
+
 [Documentación de Firebase](https://firebase.google.com/docs)
+
 [Documentación de AngularFire](https://github.com/angular/angularfire)
-```
+
