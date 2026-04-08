@@ -1,8 +1,12 @@
 <div class="detail-layout">
   <div class="detail-media">
     <img
-      [src]="playerForm.get('imagen')?.value || 'https://via.placeholder.com/300x400?text=Jugador'"
-      [alt]="playerForm.get('nombre')?.value || 'Jugador'"
+      [src]="imagePreview || 'https://via.placeholder.com/300x400?text=Jugador'"
+      [alt]="
+        (playerForm.get('nombre')?.value || 'Jugador') +
+        ' ' +
+        (playerForm.get('apellidos')?.value || '')
+      "
       class="detail-image"
     />
 
@@ -146,6 +150,7 @@
           formControlName="edad"
           [class.is-invalid]="isInvalid('edad')"
         />
+
         <small class="error-message" *ngIf="hasError('edad', 'required')">
           La edad es obligatoria.
         </small>
@@ -191,15 +196,15 @@
         />
 
         <small class="error-message" *ngIf="hasError('peso', 'required')">
-          La peso es obligatoria.
+          El peso es obligatorio.
         </small>
 
         <small class="error-message" *ngIf="hasError('peso', 'min')">
-          La peso no puede ser menor de {{ getControlError('peso', 'min')?.min }} kg.
+          El peso no puede ser menor de {{ getControlError('peso', 'min')?.min }} kg.
         </small>
 
         <small class="error-message" *ngIf="hasError('peso', 'max')">
-          La peso no puede ser mayor de {{ getControlError('peso', 'max')?.max }} kg.
+          El peso no puede ser mayor de {{ getControlError('peso', 'max')?.max }} kg.
         </small>
       </div>
 
@@ -213,7 +218,7 @@
         />
 
         <small class="error-message" *ngIf="hasError('numejersey', 'required')">
-          El número es obligatoria.
+          El número es obligatorio.
         </small>
 
         <small class="error-message" *ngIf="hasError('numejersey', 'min')">
@@ -236,11 +241,11 @@
         />
 
         <small class="error-message" *ngIf="hasError('PPP', 'required')">
-          Los puntos por partido es obligatoria.
+          Los puntos por partido son obligatorios.
         </small>
 
         <small class="error-message" *ngIf="hasError('PPP', 'min')">
-          Los puntos por partido no puede ser negativo.
+          Los puntos por partido no pueden ser negativos.
         </small>
       </div>
 
@@ -255,11 +260,11 @@
         />
 
         <small class="error-message" *ngIf="hasError('APP', 'required')">
-          Las asistencias por partido es obligatoria.
+          Las asistencias por partido son obligatorias.
         </small>
 
         <small class="error-message" *ngIf="hasError('APP', 'min')">
-          Las asistencias por partido no puede ser negativo.
+          Las asistencias por partido no pueden ser negativas.
         </small>
       </div>
 
@@ -272,12 +277,13 @@
           formControlName="RPP"
           [class.is-invalid]="isInvalid('RPP')"
         />
+
         <small class="error-message" *ngIf="hasError('RPP', 'required')">
-          Los rebotes por partido es obligatoria.
+          Los rebotes por partido son obligatorios.
         </small>
 
         <small class="error-message" *ngIf="hasError('RPP', 'min')">
-          Los rebotes por partido no puede ser negativo.
+          Los rebotes por partido no pueden ser negativos.
         </small>
       </div>
 
@@ -292,7 +298,7 @@
         />
 
         <small class="error-message" *ngIf="hasError('TirosCampo', 'required')">
-          El porcentaje es obligatoria.
+          El porcentaje es obligatorio.
         </small>
 
         <small class="error-message" *ngIf="hasError('TirosCampo', 'min')">
@@ -311,7 +317,19 @@
           class="form-control"
           formControlName="imagen"
           [class.is-invalid]="isInvalid('imagen')"
+          placeholder="https://..."
         />
+      </div>
+
+      <div class="form-field form-field--full" *ngIf="isNewPlayer || editMode">
+        <label>O seleccionar imagen del ordenador</label>
+        <input
+          type="file"
+          class="form-control"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+        />
+        <small class="helper-message"> Puedes usar una URL o seleccionar una imagen local. </small>
       </div>
 
       <div class="form-field form-field--full">
@@ -321,7 +339,19 @@
           class="form-control"
           formControlName="videoURL"
           [class.is-invalid]="isInvalid('videoURL')"
+          placeholder="https://..."
         />
+      </div>
+
+      <div class="form-field form-field--full" *ngIf="isNewPlayer || editMode">
+        <label>O seleccionar vídeo del ordenador</label>
+        <input
+          type="file"
+          class="form-control"
+          accept="video/*"
+          (change)="onVideoSelected($event)"
+        />
+        <small class="helper-message"> Puedes usar una URL o seleccionar un vídeo local. </small>
       </div>
 
       <div class="form-field form-field--full">
@@ -343,13 +373,31 @@
         </small>
       </div>
     </form>
-    <div class="video-section" *ngIf="playerForm.get('videoURL')?.value">
+
+    <div class="video-section" *ngIf="videoPreview">
       <h5>Vídeo</h5>
 
-      <div class="video-wrapper">
-        <iframe *ngIf="getSafeVideoUrl()" [src]="getSafeVideoUrl()" frameborder="0" allowfullscreen>
-        </iframe>
+      <div class="video-wrapper" *ngIf="isEmbedVideo(); else localVideoBlock">
+        <iframe
+          [src]="getSafeVideoUrl()"
+          frameborder="0"
+          allow="
+            accelerometer;
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            gyroscope;
+            picture-in-picture;
+          "
+          allowfullscreen
+        ></iframe>
       </div>
+
+      <ng-template #localVideoBlock>
+        <div class="local-video-wrapper">
+          <video [src]="videoPreview" controls preload="metadata"></video>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
