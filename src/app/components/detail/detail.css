@@ -150,6 +150,28 @@ textarea.form-control {
   min-height: 120px;
 }
 
+.helper-message {
+  display: block;
+  margin-top: 0.35rem;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+.local-video-wrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  background: #000;
+}
+
+.local-video-wrapper video {
+  display: block;
+  width: 100%;
+  max-height: 500px;
+  background: #000;
+}
+
 @media (max-width: 900px) {
   .detail-layout {
     grid-template-columns: 1fr;
